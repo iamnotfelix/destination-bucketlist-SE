@@ -34,12 +34,27 @@ namespace api.Controllers
         
         // ADD /publicdestinations
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> AddPublicDestinationsAsync(AddPublicDestinationDto publicDestination)
+        public async Task<ActionResult<PublicDestinationDto>> AddPublicDestinationsAsync(AddPublicDestinationDto publicDestination)
         {
             try
             {
                 var newPublicDestinations = await this.service.AddAsync(publicDestination);
                 return Ok(newPublicDestinations);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+        
+        // ADD /publicdestinations/:id
+        [HttpPost("id")]
+        public async Task<ActionResult> UpdatePublicDestinationsAsync(Guid id, UpdatePublicDestinationDto publicDestination)
+        {
+            try
+            {
+                await this.service.UpdateAsync(id, publicDestination);
+                return NoContent();
             }
             catch (NotFoundException e)
             {

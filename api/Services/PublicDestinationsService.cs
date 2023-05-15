@@ -46,5 +46,28 @@ namespace api.Services
 
             return newPublicDestination.AsDto();
         }
+
+        public async Task UpdateAsync(Guid id, UpdatePublicDestinationDto publicDestination)
+        {
+            var oldPublicDestination = await this.context.PublicDestinations.FindAsync(id);
+            
+            if (oldPublicDestination is null)
+            {
+                throw new NotFoundException("Destination not found.");
+            }
+            
+            // TODO: validate new public destination
+
+            oldPublicDestination.Geolocation = publicDestination.Geolocation == string.Empty ?
+                oldPublicDestination.Geolocation : publicDestination.Geolocation;
+            oldPublicDestination.Title = publicDestination.Title == string.Empty ?
+                oldPublicDestination.Title : publicDestination.Title;
+            oldPublicDestination.Image = publicDestination.Image == string.Empty ?
+                oldPublicDestination.Image : publicDestination.Image;
+            oldPublicDestination.Description = publicDestination.Description == string.Empty ?
+                oldPublicDestination.Description : publicDestination.Description;
+
+            await this.context.SaveChangesAsync();
+        }
     }
 }
