@@ -39,9 +39,12 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("Default")!));
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IPublicDestinationsService, PublicDestinationsService>();
+builder.Services.AddScoped<IPrivateDestinationsService, PrivateDestinationsService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPermission, Permission>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
