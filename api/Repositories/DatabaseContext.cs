@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using api.Models;
 
-namespace moneyManager.Repositories
+namespace api.Repositories
 {
     public class DatabaseContext : DbContext
     {
