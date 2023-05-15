@@ -5,7 +5,7 @@ namespace api.Services
     public interface IPublicDestinationsService
     {
         Task<IEnumerable<PublicDestinationDto>> GetAllAsync();
-        // Task<T> GetByIdAsync(Guid id);
+        Task<PublicDestinationDto> GetByIdAsync(Guid id);
         Task<PublicDestinationDto> AddAsync(AddPublicDestinationDto publicDestination);
         Task UpdateAsync(Guid id, UpdatePublicDestinationDto publicDestination);
         Task DeleteAsync(Guid id);

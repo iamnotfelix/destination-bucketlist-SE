@@ -28,6 +28,18 @@ namespace api.Services
             return publicDestinations.Select(destination => destination.AsDto());
         }
 
+        public async Task<PublicDestinationDto> GetByIdAsync(Guid id)
+        {
+            var publicDestination = await this.context.PublicDestinations.FindAsync(id);
+
+            if (publicDestination is null)
+            {
+                throw new NotFoundException("Destination not found.");
+            }
+
+            return publicDestination.AsDto();
+        }
+
         public async Task<PublicDestinationDto> AddAsync(AddPublicDestinationDto publicDestination)
         {
             var newPublicDestination = new Destination 

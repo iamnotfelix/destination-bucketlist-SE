@@ -32,6 +32,21 @@ namespace api.Controllers
             }
         }
         
+        // GET /publicdestinations/:id
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> GetPublicDestinationAsync(Guid id)
+        {
+            try
+            {
+                var publicDestination = await this.service.GetByIdAsync(id);
+                return Ok(publicDestination);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+        
         // ADD /publicdestinations
         [HttpPost]
         public async Task<ActionResult<PublicDestinationDto>> AddPublicDestinationAsync(AddPublicDestinationDto publicDestination)
@@ -63,7 +78,7 @@ namespace api.Controllers
         }
 
         // DELETE /publicdestination/:id
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePublicDestiantion(Guid id)
         {
             try
