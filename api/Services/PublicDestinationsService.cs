@@ -69,5 +69,18 @@ namespace api.Services
 
             await this.context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var publicDestination = await this.context.PublicDestinations.FindAsync(id);
+
+            if (publicDestination is null) 
+            {
+                throw new NotFoundException("Destination not found.");
+            }
+
+            this.context.Remove(publicDestination);
+            await this.context.SaveChangesAsync();
+        }
     }
 }

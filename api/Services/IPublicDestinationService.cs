@@ -8,6 +8,6 @@ namespace api.Services
         // Task<T> GetByIdAsync(Guid id);
         Task<PublicDestinationDto> AddAsync(AddPublicDestinationDto publicDestination);
         Task UpdateAsync(Guid id, UpdatePublicDestinationDto publicDestination);
-        // Task DeleteAsync(Guid id);
+        Task DeleteAsync(Guid id);
     }
 }

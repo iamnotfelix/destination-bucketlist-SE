@@ -34,7 +34,7 @@ namespace api.Controllers
         
         // ADD /publicdestinations
         [HttpPost]
-        public async Task<ActionResult<PublicDestinationDto>> AddPublicDestinationsAsync(AddPublicDestinationDto publicDestination)
+        public async Task<ActionResult<PublicDestinationDto>> AddPublicDestinationAsync(AddPublicDestinationDto publicDestination)
         {
             try
             {
@@ -48,12 +48,27 @@ namespace api.Controllers
         }
         
         // ADD /publicdestinations/:id
-        [HttpPost("id")]
-        public async Task<ActionResult> UpdatePublicDestinationsAsync(Guid id, UpdatePublicDestinationDto publicDestination)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdatePublicDestinationAsync(Guid id, UpdatePublicDestinationDto publicDestination)
         {
             try
             {
                 await this.service.UpdateAsync(id, publicDestination);
+                return NoContent();
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        // DELETE /publicdestination/:id
+        [HttpDelete("id")]
+        public async Task<ActionResult> DeletePublicDestiantion(Guid id)
+        {
+            try
+            {
+                await this.service.DeleteAsync(id);
                 return NoContent();
             }
             catch (NotFoundException e)
