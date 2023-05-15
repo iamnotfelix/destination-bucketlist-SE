@@ -2,11 +2,13 @@ using api.Dtos.PublicDestinations;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 using api.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {
 
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class PublicDestinationsController : ControllerBase
     {
@@ -19,6 +21,7 @@ namespace api.Controllers
 
         // GET /publicdestinations
         [HttpGet]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> GetPublicDestinationsAsync()
         {
             try
@@ -34,6 +37,7 @@ namespace api.Controllers
         
         // GET /publicdestinations/:id
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> GetPublicDestinationAsync(Guid id)
         {
             try
@@ -49,6 +53,7 @@ namespace api.Controllers
         
         // ADD /publicdestinations
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<PublicDestinationDto>> AddPublicDestinationAsync(AddPublicDestinationDto publicDestination)
         {
             try
@@ -62,8 +67,9 @@ namespace api.Controllers
             }
         }
         
-        // ADD /publicdestinations/:id
+        // PUT /publicdestinations/:id
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdatePublicDestinationAsync(Guid id, UpdatePublicDestinationDto publicDestination)
         {
             try
@@ -79,6 +85,7 @@ namespace api.Controllers
 
         // DELETE /publicdestination/:id
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeletePublicDestiantion(Guid id)
         {
             try
