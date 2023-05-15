@@ -31,5 +31,20 @@ namespace api.Controllers
                 return NotFound(e.Message);
             }
         }
+        
+        // ADD /publicdestinations
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> AddPublicDestinationsAsync(AddPublicDestinationDto publicDestination)
+        {
+            try
+            {
+                var newPublicDestinations = await this.service.AddAsync(publicDestination);
+                return Ok(newPublicDestinations);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }
