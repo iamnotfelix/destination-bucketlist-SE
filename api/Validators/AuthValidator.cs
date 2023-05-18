@@ -8,8 +8,9 @@ public class AuthValidator
     public string ValidateUser(User user)
     {
         var usernameErrors = this.ValidateUserName(user.Username);
+        var passwordErrors = this.ValidatePassword(user.Password);
 
-        return usernameErrors;
+        return usernameErrors + passwordErrors;
     }
     
     private string ValidateUserName(string username)
@@ -30,6 +31,24 @@ public class AuthValidator
             errors += "Username can only contain alphanumeric characters and '_'\n";
         }
         
+        return errors;
+    }
+
+    private string ValidatePassword(string password)
+    {
+
+        var errors = string.Empty;
+        
+        if (password.Length < 8)
+        {
+            errors += "Password must contain at least 8 characters\n";
+        }
+
+        if (!Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$"))
+        {
+            errors += "Password must contain at least one lowercase letter, one uppercase letter and one digit\n";
+        }
+
         return errors;
     }
 }
