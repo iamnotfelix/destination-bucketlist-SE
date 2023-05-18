@@ -9,8 +9,9 @@ public class AuthValidator
     {
         var usernameErrors = this.ValidateUserName(user.Username);
         var passwordErrors = this.ValidatePassword(user.Password);
+        var roleErrors = this.ValidateRoles(user.Roles);
 
-        return usernameErrors + passwordErrors;
+        return usernameErrors + passwordErrors + roleErrors;
     }
     
     private string ValidateUserName(string username)
@@ -49,6 +50,18 @@ public class AuthValidator
             errors += "Password must contain at least one lowercase letter, one uppercase letter and one digit\n";
         }
 
+        return errors;
+    }
+
+    private string ValidateRoles(string role)
+    {
+        var errors = string.Empty;
+        
+        if (role != "Admin" && role != "Normal")
+        {
+            errors += "Invalid Role\n";
+        }
+        
         return errors;
     }
 }
