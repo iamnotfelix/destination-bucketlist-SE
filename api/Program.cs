@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using api.Validators;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -45,6 +46,10 @@ builder.Services.AddScoped<IPublicDestinationsService, PublicDestinationsService
 builder.Services.AddScoped<IPrivateDestinationsService, PrivateDestinationsService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPermission, Permission>();
+
+builder.Services.AddScoped<AuthValidator>();
+builder.Services.AddScoped<PrivateDestinationValidator>();
+builder.Services.AddScoped<PublicDestinationValidator>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

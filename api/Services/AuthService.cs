@@ -7,6 +7,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using api.Responses;
 using api.Dtos.User;
+using api.Validators;
 
 namespace api.Services
 {
@@ -14,10 +15,12 @@ namespace api.Services
     {
         private readonly DatabaseContext context;
         private readonly IConfiguration configuration;
-        public AuthService(DatabaseContext context, IConfiguration configuration)
+        private readonly AuthValidator validator;
+            public AuthService(DatabaseContext context, IConfiguration configuration, AuthValidator validator)
         {
             this.context = context;
             this.configuration = configuration;
+            this.validator = validator;
         }
 
         public async Task<DetailedUserDto> GetUserAsync(Guid id)
@@ -50,7 +53,11 @@ namespace api.Services
                 Roles = string.Join(",", user.Roles)
             };
 
-            // TODO: validate new user
+            var result = this.validator.ValidateUser(newUser);
+            if (result != string.Empty)
+            {
+                throw new ValidationException(result);
+            }
 
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
             newUser.Password = passwordHash;
@@ -69,7 +76,6 @@ namespace api.Services
             {
                 throw new NotFoundException("Username or password are incorrect.");
             }
-
 
             if (!BCrypt.Net.BCrypt.Verify(user.Password, actualUser.Password))
             {
