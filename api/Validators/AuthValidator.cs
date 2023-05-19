@@ -7,14 +7,14 @@ public class AuthValidator
 {
     public string ValidateUser(User user)
     {
-        var usernameErrors = this.ValidateUserName(user.Username);
-        var passwordErrors = this.ValidatePassword(user.Password);
-        var roleErrors = this.ValidateRoles(user.Roles);
+        var usernameErrors = ValidateUserName(user.Username);
+        var passwordErrors = ValidatePassword(user.Password);
+        var roleErrors = ValidateRoles(user.Roles);
 
         return usernameErrors + passwordErrors + roleErrors;
     }
     
-    private string ValidateUserName(string username)
+    private static string ValidateUserName(string username)
     {
         var errors = string.Empty;
         
@@ -35,7 +35,7 @@ public class AuthValidator
         return errors;
     }
 
-    private string ValidatePassword(string password)
+    private static string ValidatePassword(string password)
     {
 
         var errors = string.Empty;
@@ -44,7 +44,7 @@ public class AuthValidator
         {
             errors += "Password must contain at least 8 characters\n";
         }
-
+        
         if (!Regex.IsMatch(password, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$"))
         {
             errors += "Password must contain at least one lowercase letter, one uppercase letter and one digit\n";
@@ -53,7 +53,7 @@ public class AuthValidator
         return errors;
     }
 
-    private string ValidateRoles(string role)
+    private static string ValidateRoles(string role)
     {
         var errors = string.Empty;
         
