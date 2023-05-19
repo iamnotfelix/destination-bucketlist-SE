@@ -63,7 +63,7 @@ public class PrivateDestinationValidator
             errors += "Title cannot start or end with whitespace character\n";
         }
 
-        var pattern = @"^(?i)(?:[A-Z][a-z\d.'\-]*\s*)+$";
+        const string pattern = @"^(?i)(?:[A-Z][a-z\d.'\-]*\s*)+$";
         var match = Regex.Match(title, pattern);
 
         if (!match.Success)
