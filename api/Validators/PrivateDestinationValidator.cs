@@ -130,5 +130,4 @@ public class PrivateDestinationValidator
 
         return errors;
     }
-
 }
