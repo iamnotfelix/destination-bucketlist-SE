@@ -1,19 +1,21 @@
 using api.Dtos.PublicDestinations;
 using Microsoft.EntityFrameworkCore;
-using api;
 using api.Exceptions;
 using api.Repositories;
 using api.Models;
+using api.Validators;
 
 namespace api.Services
 {
     public class PublicDestinationsService : IPublicDestinationsService
     {
         private readonly DatabaseContext context;
+        private readonly PublicDestinationValidator validator;
 
-        public PublicDestinationsService(DatabaseContext context)
+        public PublicDestinationsService(DatabaseContext context, PublicDestinationValidator validator)
         {
             this.context = context;
+            this.validator = validator;
         }
 
         public async Task<IEnumerable<PublicDestinationDto>> GetAllAsync()
@@ -51,7 +53,11 @@ namespace api.Services
                 Description = publicDestination.Description
             };
 
-            // TODO: validate new public destination
+            var result = this.validator.ValidatePublicDestination(publicDestination);
+            if (result != string.Empty)
+            {
+                throw new ValidationException(result);
+            }
 
             await this.context.PublicDestinations.AddAsync(newPublicDestination);
             await this.context.SaveChangesAsync();
@@ -68,7 +74,11 @@ namespace api.Services
                 throw new NotFoundException("Destination not found.");
             }
             
-            // TODO: validate new public destination
+            var result = this.validator.ValidatePublicDestinationDto(publicDestination);
+            if (result != string.Empty)
+            {
+                throw new ValidationException(result);
+            }
 
             oldPublicDestination.Geolocation = publicDestination.Geolocation == string.Empty ?
                 oldPublicDestination.Geolocation : publicDestination.Geolocation;

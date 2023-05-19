@@ -2,18 +2,21 @@ using api.Dtos.PrivateDestination;
 using api.Exceptions;
 using api.Models;
 using api.Repositories;
+using api.Validators;
 
 namespace api.Services
 {
     public class PrivateDestinationsService : IPrivateDestinationsService
     {
         private readonly DatabaseContext context;
-         private readonly IPermission permission;
+        private readonly IPermission permission;
+        private readonly PrivateDestinationValidator validator;
 
-        public PrivateDestinationsService(DatabaseContext context, IPermission permission)
+        public PrivateDestinationsService(DatabaseContext context, IPermission permission, PrivateDestinationValidator validator)
         {
             this.context = context;
             this.permission = permission;
+            this.validator = validator;
         }
         
         public Task<IEnumerable<PrivateDestinationDto>> GetAllAsync()
@@ -51,7 +54,11 @@ namespace api.Services
                 UserId = privateDestination.UserId
             };
 
-            // TODO: validate new private destination
+            var result = this.validator.ValidatePrivateDestination(newPrivateDestination);
+            if (result != string.Empty)
+            {
+                throw new ValidationException(result);
+            }
 
             await this.context.PrivateDestinations.AddAsync(newPrivateDestination);
             await this.context.SaveChangesAsync();
@@ -70,7 +77,11 @@ namespace api.Services
 
             this.permission.Check(oldPrivateDestination.UserId);
             
-            // TODO: validate new private destination
+            var result = this.validator.ValidatePrivateDestinationDto(privateDestination);
+            if (result != string.Empty)
+            {
+                throw new ValidationException(result);
+            }
 
             oldPrivateDestination.Geolocation = privateDestination.Geolocation == string.Empty ?
                 oldPrivateDestination.Geolocation : privateDestination.Geolocation;
