@@ -53,7 +53,7 @@ namespace api.Services
                 Description = publicDestination.Description
             };
 
-            var result = this.validator.ValidatePublicDestination(publicDestination);
+            var result = this.validator.ValidatePublicDestination(newPublicDestination);
             if (result != string.Empty)
             {
                 throw new ValidationException(result);
