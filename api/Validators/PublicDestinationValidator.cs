@@ -35,11 +35,13 @@ public class PublicDestinationValidator
         {
             var latitude = double.Parse(match.Groups[1].Value);
             var longitude = double.Parse(match.Groups[3].Value);
-            if (latitude is >= -90 and <= 90)
+
+            if (latitude is <= -90 or >= 90)
             {
                 errors += "Latitude is not in correct range, must be in [-90, 90]\n";
             }
-            else if (longitude is >= -180 and <= 180)
+            
+            if (longitude is <= -180 or >= 180)
             {
                 errors += "Longitude is not in correct range, must be in [-180, 180]\n";
             }
@@ -55,24 +57,19 @@ public class PublicDestinationValidator
     private static string ValidateDestinationTitle(string title)
     {
         var errors = string.Empty;
-        
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            errors += "Title cannot start or end with whitespace character\n";
-        }
 
-        const string pattern = @"^(?i)(?:[A-Z][a-z\d.'\-]*\s*)+$";
+        const string pattern = @"^(?i)(?:[A-Z\d][a-z\d.'\-\s,]*)+$";
         var match = Regex.Match(title, pattern);
 
         if (!match.Success)
         {
-            errors += "Title must only contain alphanumeric characters and '\\-.'\n";
+            errors += "Title must only contain alphanumeric characters, spaces, `'-.'`, and ','.\n";
         }
 
         var words = title.Split(' ');
         foreach (var word in words)
         {
-            if (string.IsNullOrEmpty(word) || !char.IsUpper(word[0]))
+            if (string.IsNullOrEmpty(word) || (!char.IsUpper(word[0]) && !char.IsNumber(word[0])))
             {
                 errors += $"'{word}' must start with an uppercase letter\n";
             }
@@ -86,7 +83,7 @@ public class PublicDestinationValidator
         var errors = string.Empty;
         
         // Maybe add more sites later like imgur 
-        if (image.StartsWith("https://fastly.picsum.photos/") || image.StartsWith("fastly.picsum.photos/"))
+        if (!image.StartsWith("https://fastly.picsum.photos/") && !image.StartsWith("fastly.picsum.photos/"))
         {
             errors += "Image URL is not valid\n";
         }
@@ -97,7 +94,7 @@ public class PublicDestinationValidator
     private static string ValidateDestinationDescription(string description)
     {
         var errors = string.Empty;
-
+        
         if (description.Length > 200)
         {
             errors += "Description is too long, keep it under 200 characters\n";

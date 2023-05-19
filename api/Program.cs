@@ -39,7 +39,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("Default")!));
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Test"));
+//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("Default")!));
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IPublicDestinationsService, PublicDestinationsService>();
