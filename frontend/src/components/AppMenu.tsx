@@ -2,8 +2,11 @@ import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/mater
 import { Link, useLocation } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LoginIcon from '@mui/icons-material/Login';
 
-export const AppMenu = () => {
+
+export function AppMenu(props){
 	const location = useLocation();
 	const path = location.pathname;
 
@@ -24,8 +27,15 @@ export const AppMenu = () => {
 					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
 						Destination bucket list
 					</Typography>
+					<Button 
+						to="/login"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LoginIcon />}>
+						Login
+					</Button>
 					<Button
-						//variant={path.startsWith("/shelter") ? "outlined" : "text"}
 						to="/alldestinations"
 						component={Link}
 						color="inherit"
@@ -33,11 +43,29 @@ export const AppMenu = () => {
 						startIcon={<AirplanemodeActiveIcon />}>
 						All destinations
 					</Button>
-					
-
-
+					{props.userid ? (
+						<>
+							<Button onClick={props.handleLogout}>
+								Logout
+							</Button>
+						</>
+					) : (
+						<>
+							<Typography variant="h6" component="div" sx={{ mr: 5 }}>
+								User ID: {props.userid}
+							</Typography>
+						</>
+					)}
+					<Button
+						to="/privatedestinations"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<AirplanemodeActiveIcon />}>
+						Private destinations
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>
 	);
-};
+}
