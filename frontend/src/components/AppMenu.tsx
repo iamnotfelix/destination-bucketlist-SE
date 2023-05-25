@@ -46,8 +46,8 @@ export const AppMenu = () => {
 						Login
 					</Button>
 					<Button
-						variant={path.startsWith("/shelter") ? "outlined" : "text"}
-						to="/shelter"
+						//variant={path.startsWith("/shelter") ? "outlined" : "text"}
+						to="/alldestinations"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}

@@ -21,7 +21,8 @@ namespace api.Controllers
 
         // GET /publicdestinations
         [HttpGet]
-        [Authorize(Roles = "Admin,Normal")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "Admin,Normal")]
         public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> GetPublicDestinationsAsync()
         {
             try

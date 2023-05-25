@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppMenu } from "./components/AppMenu";
 import { AppHome } from "./components/AppHome";
+import AllDestinations from "./components/PublicDestinations/AllDestinations";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
               <Routes>
                       
                       <Route path="/" element={<AppHome />} />
+                      <Route path="/alldestinations" element={<AllDestinations />} />
 
                       
                       {/* volunteerings routes */}
