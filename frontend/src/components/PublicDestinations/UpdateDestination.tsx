@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const AddDestination = () => {
+const UpdateDestination = () => {
+  const location = useLocation();
+  const { destination } = location.state || {};
+
   const [geolocation, setGeolocation] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
 
+  useEffect(() => {
+    if (destination) {
+      setGeolocation(destination.geolocation);
+      setTitle(destination.title);
+      setDescription(destination.description);
+      setImage(destination.image);
+    }
+  }, [destination]);
 
   const navigate = useNavigate();
+
 
   const handleGeolocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGeolocation(event.target.value);
@@ -28,10 +40,10 @@ const AddDestination = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
+
     try {
-      const response = await fetch('http://localhost:5145/api/PublicDestinations', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:5145/api/PublicDestinations/${destination.id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -42,29 +54,23 @@ const AddDestination = () => {
           image,
         }),
       });
-  
+
       if (response.ok) {
-        // Destination added successfully
-        setGeolocation('');
-        setTitle('');
-        setDescription('');
-        setImage('');
-        console.log('Destination added successfully');
+        console.log('Destination updated successfully');
         navigate('/alldestinations'); // Redirect to the desired page
 
+        // Perform any necessary actions after successfully updating the destination
       } else {
-        // Error occurred while adding destination
-        console.error('Error adding destination');
+        console.error('Error updating destination');
       }
     } catch (error) {
-      console.error('Error adding destination:', error);
+      console.error('Error updating destination:', error);
     }
   };
-  
 
   return (
     <div>
-      <h1>Add Destination</h1>
+      <h1>Update Destination</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="geolocation">Geolocation:</label>
@@ -82,10 +88,10 @@ const AddDestination = () => {
           <label htmlFor="image">Image:</label>
           <input type="text" id="image" value={image} onChange={handleImageChange} required />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Update</button>
       </form>
     </div>
   );
 };
 
-export default AddDestination;
+export default UpdateDestination;

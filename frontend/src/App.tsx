@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppMenu } from "./components/AppMenu";
 import { AppHome } from "./components/AppHome";
 import AllDestinations from "./components/PublicDestinations/AllDestinations";
+import AddDestination from "./components/PublicDestinations/AddDestination";
+import UpdateDestination from "./components/PublicDestinations/UpdateDestination";
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
                       
                       <Route path="/" element={<AppHome />} />
                       <Route path="/alldestinations" element={<AllDestinations />} />
+                      <Route path="/adddestination" element={<AddDestination />} />
+                      <Route path="/updatedestination" element={<UpdateDestination />} />
+
 
                       
                       {/* volunteerings routes */}
