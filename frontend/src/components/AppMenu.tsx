@@ -27,17 +27,7 @@ export const AppMenu = () => {
 					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
 						Destination bucket list
 					</Typography>
-                    <Button
-						variant={path.startsWith("/register") ? "outlined" : "text"}
-						to="/register"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<AppRegistrationIcon />}>
-						Register
-					</Button>
 					<Button 
-						variant={path.startsWith("/login") ? "outlined" : "text"}
 						to="/login"
 						component={Link}
 						color="inherit"
@@ -46,13 +36,20 @@ export const AppMenu = () => {
 						Login
 					</Button>
 					<Button
-						//variant={path.startsWith("/shelter") ? "outlined" : "text"}
 						to="/alldestinations"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
 						startIcon={<AirplanemodeActiveIcon />}>
 						All destinations
+					</Button>
+					<Button
+						to="/privatedestinations"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<AirplanemodeActiveIcon />}>
+						Private destinations
 					</Button>
 
 

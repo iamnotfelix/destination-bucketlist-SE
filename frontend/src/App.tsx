@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppMenu } from "./components/AppMenu";
 import { AppHome } from "./components/AppHome";
 import { AllDestinations } from "./components/PublicDestinations/AllDestinations";
+import { PrivateDestinations } from "./components/PrivateDestination/PrivateDestinations";
+import LoginForm from "./components/Login/Login";
 
 function App() {
   return (
@@ -16,8 +18,12 @@ function App() {
                       <Route path="/" element={<AppHome />} />
                       <Route path="/alldestinations" element={<AllDestinations />} />
 
-                      
-                      {/* volunteerings routes */}
+
+                      {/* private destination routes */}
+                      <Route path="/privatedestinations" element ={<PrivateDestinations />} />
+
+
+                      <Route path="/login" element ={<LoginForm />} />
 
               </Routes>
       </Router>
