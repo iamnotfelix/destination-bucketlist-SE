@@ -8,21 +8,42 @@ import { AllDestinations } from "./components/PublicDestinations/AllDestinations
 import { PrivateDestinations } from "./components/PrivateDestination/PrivateDestinations";
 import AddDestination from "./components/PublicDestinations/AddDestination";
 import UpdateDestination from "./components/PublicDestinations/UpdateDestination";
+import AllUserDestinations from "./components/PrivateDestination/AllUserDestinations";
+import AddPrivate from "./components/PrivateDestination/AddPrivate";
 
 function App() {
+
+    const user = localStorage.getItem('item');
+    const item = JSON.parse(user);
+    const userRole = item ? item.roles : null;
 
     return (
         <React.Fragment>
             <Router>
                 <AppMenu />
                 <Routes>
-                    <Route path="/" element={<AppHome />} />
-                    <Route path="/alldestinations" element={<AllDestinations />} />
-                    <Route path="/privatedestinations" element ={<PrivateDestinations />} />
-                    <Route path="/login" element ={<LoginForm />} />
+                    {userRole === null && (
+                        <React.Fragment>
+                            <Route path="/login" element={<LoginForm />} />
+                            <Route path="/" element={<AppHome />} />
+                        </React.Fragment>
+                    )}
 
-                    <Route path="/adddestination" element={<AddDestination />} />
-                    <Route path="/updatedestination" element={<UpdateDestination />} />
+                    {userRole === "Admin" && (
+                        <React.Fragment>
+                            <Route path="/alldestinations" element={<AllDestinations />} />
+                            <Route path="/adddestination" element={<AddDestination />} />
+                            <Route path="/updatedestination" element={<UpdateDestination />} />
+                        </React.Fragment>
+                    )}
+
+                    {userRole === "Normal" && (
+                        <React.Fragment>
+                            <Route path="/pickpublic" element={<AllUserDestinations />}/>
+                            <Route path="/addprivatedestination" element={<AddPrivate />}/>
+                            <Route path="/privatedestinations" element={<PrivateDestinations />}/>
+                        </React.Fragment>
+                    )}
                 </Routes>
             </Router>
         </React.Fragment>

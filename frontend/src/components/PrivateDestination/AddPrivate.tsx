@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const UpdateDestination = () => {
+const AddPrivate = () => {
   const location = useLocation();
   const { destination } = location.state || {};
 
@@ -9,10 +9,12 @@ const UpdateDestination = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const user = localStorage.getItem('item');
   const item = JSON.parse(user);
-  const userRole = item ? item.roles : null;
+  const userid = item ? item.userid : null;
   const token = item ? item.token : null;
 
   useEffect(() => {
@@ -25,7 +27,6 @@ const UpdateDestination = () => {
   }, [destination]);
 
   const navigate = useNavigate();
-
 
   const handleGeolocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGeolocation(event.target.value);
@@ -43,12 +44,20 @@ const UpdateDestination = () => {
     setImage(event.target.value);
   };
 
+  const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEndDate(event.target.value);
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`https://localhost:7203/api/PublicDestinations/${destination.id}`, {
-        method: 'PUT',
+      const response = await fetch('https://localhost:7203/api/PrivateDestinations', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
@@ -58,29 +67,36 @@ const UpdateDestination = () => {
           title,
           description,
           image,
+          startDate,
+          endDate,
+          userid
         }),
       });
 
       if (response.ok) {
-        console.log('Destination updated successfully');
-        navigate('/alldestinations'); // Redirect to the desired page
+        console.log('Private destination added successfully');
+        navigate('/pickpublic'); // Redirect to the desired page
 
-        // Perform any necessary actions after successfully updating the destination
+        // Perform any necessary actions after successfully adding the private destination
       } else {
-        console.error('Error updating destination');
+        console.error('Error adding private destination');
       }
     } catch (error) {
-      console.error('Error updating destination:', error);
+      console.error('Error adding private destination:', error);
     }
+  };
+
+  const handlePickFromPublic = () => {
+    navigate('/pickpublic');
   };
 
   return (
     <div>
-      <h1>Update Destination</h1>
+      <h1>Add Private Destination</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="geolocation">Geolocation:</label>
-          <input type="text" id="geolocation" value={geolocation} onChange={handleGeolocationChange} required />
+          <input type="text" id="geolocation" value={geolocation} onChange={handleGeolocationChange} required readOnly/>
         </div>
         <div>
           <label htmlFor="title">Title:</label>
@@ -94,10 +110,19 @@ const UpdateDestination = () => {
           <label htmlFor="image">Image:</label>
           <input type="text" id="image" value={image} onChange={handleImageChange} required />
         </div>
-        <button type="submit">Update</button>
+        <div>
+          <label htmlFor="startDate">Start Date:</label>
+          <input type="date" id="startDate" value={startDate} onChange={handleStartDateChange} required />
+        </div>
+        <div>
+          <label htmlFor="endDate">End Date:</label>
+          <input type="date" id="endDate" value={endDate} onChange={handleEndDateChange} required />
+        </div>
+        <button type="submit">Add Private Destination</button>
       </form>
+      <button onClick={handlePickFromPublic}>Pick from Public</button>
     </div>
   );
 };
 
-export default UpdateDestination;
+export default AddPrivate;

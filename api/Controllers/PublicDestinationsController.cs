@@ -21,8 +21,7 @@ namespace api.Controllers
 
         // GET /publicdestinations
         [HttpGet]
-        [AllowAnonymous]
-        //[Authorize(Roles = "Admin,Normal")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> GetPublicDestinationsAsync()
         {
             try
@@ -54,8 +53,7 @@ namespace api.Controllers
         
         // ADD /publicdestinations
         [HttpPost]
-        [AllowAnonymous]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<PublicDestinationDto>> AddPublicDestinationAsync(AddPublicDestinationDto publicDestination)
         {
             try

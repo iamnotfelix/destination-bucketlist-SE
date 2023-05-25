@@ -9,7 +9,6 @@ export function AppMenu(){
 	const item = JSON.parse(user);
 	const userName = item ? item.username : null;
 	const userRole = item ? item.roles : null;
-	console.log(userRole);
 
 	const handleLogout = () => {
 		localStorage.removeItem('item');
@@ -27,28 +26,38 @@ export function AppMenu(){
 							<Typography variant="h6" component="div" sx={{ mr: 5 }}>
 								Destination bucket list
 							</Typography>
-							<Button
-								to="/alldestinations"
-								component={Link}
-								color="inherit"
-								sx={{ mr: 5 }}
-								startIcon={<AirplanemodeActiveIcon />}>
-								All destinations
-							</Button>
+
 
 							{userRole === "Admin" ? (
 								<>
-
+									<Button
+										to="/alldestinations"
+										component={Link}
+										color="inherit"
+										sx={{ mr: 5 }}
+										startIcon={<AirplanemodeActiveIcon />}>
+										All destinations
+									</Button>
 								</>
 							) : (<>
-								<Button
-									to="/privatedestinations"
-									component={Link}
-									color="inherit"
-									sx={{ mr: 5 }}
-									startIcon={<AirplanemodeActiveIcon />}>
-									Private destinations
-								</Button>
+									<Button
+										to="/pickpublic"
+										component={Link}
+										color="inherit"
+										sx={{ mr: 5 }}
+										startIcon={<AirplanemodeActiveIcon />}>
+										All available destinations
+									</Button>
+
+									<Button
+										to="/privatedestinations"
+										component={Link}
+										color="inherit"
+										sx={{ mr: 5 }}
+										startIcon={<AirplanemodeActiveIcon />}>
+										Private destinations
+									</Button>
+
 							</>)}
 
 
