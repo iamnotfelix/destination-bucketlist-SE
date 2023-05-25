@@ -22,7 +22,8 @@ namespace api.Controllers
 
         // GET /privatedestinations
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<PublicDestinationDto>>> GetPrivateDestinationsAsync()
         {
             try
