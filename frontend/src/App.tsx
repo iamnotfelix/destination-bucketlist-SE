@@ -31,8 +31,6 @@ function App() {
 
                     <Route path="/" element={<AppHome />} />
                     <Route path="/alldestinations" element={<AllDestinations />} />
-
-
                     {/* private destination routes */}
                     <Route path="/privatedestinations" element ={<PrivateDestinations />} />
 
