@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import PetsIcon from '@mui/icons-material/Pets';
 import HomeIcon from '@mui/icons-material/Home';
 import InsightsIcon from '@mui/icons-material/Insights';
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
 export const AppMenu = () => {
 	const location = useLocation();
@@ -23,7 +24,7 @@ export const AppMenu = () => {
 						<HomeIcon />
 					</IconButton>
 					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
-						Animal shelter
+						Destination bucket list
 					</Typography>
 					<Button
 						variant={path.startsWith("/shelter") ? "outlined" : "text"}
@@ -31,8 +32,8 @@ export const AppMenu = () => {
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
-						startIcon={<PetsIcon />}>
-						Shelters
+						startIcon={<AirplanemodeActiveIcon />}>
+						All destinations
 					</Button>
 					<Button
 						variant={path.startsWith("/animal") ? "outlined" : "text"}
@@ -40,7 +41,7 @@ export const AppMenu = () => {
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
-						startIcon={<PetsIcon />}>
+						startIcon={<AirplanemodeActiveIcon />}>
 						Animals
 					</Button>
 					<Button
@@ -49,7 +50,7 @@ export const AppMenu = () => {
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
-						startIcon={<PetsIcon />}>
+						startIcon={<AirplanemodeActiveIcon />}>
 						Volunteers
 					</Button>
 					<Button
@@ -58,7 +59,7 @@ export const AppMenu = () => {
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
-						startIcon={<InsightsIcon />}>
+						startIcon={<AirplanemodeActiveIcon />}>
 						Statistics
 					</Button>
 
