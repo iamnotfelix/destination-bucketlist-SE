@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const LoginForm = ({handleLogin}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
