@@ -1,8 +1,6 @@
 import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
-import PetsIcon from '@mui/icons-material/Pets';
 import HomeIcon from '@mui/icons-material/Home';
-import InsightsIcon from '@mui/icons-material/Insights';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
 export const AppMenu = () => {
@@ -35,33 +33,7 @@ export const AppMenu = () => {
 						startIcon={<AirplanemodeActiveIcon />}>
 						All destinations
 					</Button>
-					<Button
-						variant={path.startsWith("/animal") ? "outlined" : "text"}
-						to="/animal"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<AirplanemodeActiveIcon />}>
-						Animals
-					</Button>
-					<Button
-						variant={path.startsWith("/volunteer") ? "outlined" : "text"}
-						to="/volunteer"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<AirplanemodeActiveIcon />}>
-						Volunteers
-					</Button>
-					<Button
-						variant={path.startsWith("/shelter/statistics/" ) ? "outlined" : "text"}
-						to="/shelter/statistics/" 
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<AirplanemodeActiveIcon />}>
-						Statistics
-					</Button>
+					
 
 
 				</Toolbar>
