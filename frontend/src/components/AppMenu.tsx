@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
-export const AppMenu = () => {
+export function AppMenu(props){
 	const location = useLocation();
 	const path = location.pathname;
 
@@ -33,11 +33,21 @@ export const AppMenu = () => {
 						startIcon={<AirplanemodeActiveIcon />}>
 						All destinations
 					</Button>
-					
-
-
+					{props.userid ? (
+						<>
+							<Button onClick={props.handleLogout}>
+								Logout
+							</Button>
+						</>
+					) : (
+						<>
+							<Typography variant="h6" component="div" sx={{ mr: 5 }}>
+								User ID: {props.userid}
+							</Typography>
+						</>
+					)}
 				</Toolbar>
 			</AppBar>
 		</Box>
 	);
-};
+}
