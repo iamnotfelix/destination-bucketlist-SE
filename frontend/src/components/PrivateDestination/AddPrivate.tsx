@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import './AddPrivate.css';
 
 const AddPrivate = () => {
   const location = useLocation();
@@ -91,38 +92,34 @@ const AddPrivate = () => {
   };
 
   return (
-    <div>
-      <h1>Add Private Destination</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="geolocation">Geolocation:</label>
-          <input type="text" id="geolocation" value={geolocation} onChange={handleGeolocationChange} required readOnly/>
-        </div>
-        <div>
-          <label htmlFor="title">Title:</label>
+      <div className="add-private-container">
+        <h1>Add Private Destination</h1>
+        <form onSubmit={handleSubmit} className="add-private-form">
+          <label htmlFor="geolocation" className="form-field">Geolocation:</label>
+          <input type="text" id="geolocation" value={geolocation} onChange={handleGeolocationChange} required />
+
+          <label htmlFor="title" className="form-field">Title:</label>
           <input type="text" id="title" value={title} onChange={handleTitleChange} required />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
+
+          <label htmlFor="description" className="form-field">Description:</label>
           <input type="text" id="description" value={description} onChange={handleDescriptionChange} required />
-        </div>
-        <div>
-          <label htmlFor="image">Image:</label>
+
+          <label htmlFor="image" className="form-field">Image:</label>
           <input type="text" id="image" value={image} onChange={handleImageChange} required />
-        </div>
-        <div>
-          <label htmlFor="startDate">Start Date:</label>
+
+          <label htmlFor="startDate" className="form-field">Start Date:</label>
           <input type="date" id="startDate" value={startDate} onChange={handleStartDateChange} required />
-        </div>
-        <div>
-          <label htmlFor="endDate">End Date:</label>
+
+          <label htmlFor="endDate" className="form-field">End Date:</label>
           <input type="date" id="endDate" value={endDate} onChange={handleEndDateChange} required />
-        </div>
-        <button type="submit">Add Private Destination</button>
-      </form>
-      <button onClick={handlePickFromPublic}>Pick from Public</button>
-    </div>
+
+          <div className="form-actions">
+            <button type="submit">Add Private Destination</button>
+            <button onClick={handlePickFromPublic}>Pick from Public</button>
+          </div>
+        </form>
+      </div>
   );
-};
+}
 
 export default AddPrivate;
