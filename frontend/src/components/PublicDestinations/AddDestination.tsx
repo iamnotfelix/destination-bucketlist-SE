@@ -6,7 +6,10 @@ const AddDestination = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-
+  const user = localStorage.getItem('item');
+  const item = JSON.parse(user);
+  const userRole = item ? item.roles : null;
+  const token = item ? item.token : null;
 
   const navigate = useNavigate();
 
@@ -30,10 +33,11 @@ const AddDestination = () => {
     event.preventDefault();
   
     try {
-      const response = await fetch('http://localhost:5145/api/PublicDestinations', {
+      const response = await fetch('https://localhost:7203/api/PublicDestinations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           geolocation,

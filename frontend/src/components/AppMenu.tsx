@@ -1,69 +1,77 @@
 import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import LoginIcon from '@mui/icons-material/Login';
 
 
-export function AppMenu(props){
-	const location = useLocation();
-	const path = location.pathname;
+export function AppMenu(){
+	const user = localStorage.getItem('item');
+	const item = JSON.parse(user);
+	const userName = item ? item.username : null;
+	const userRole = item ? item.roles : null;
+	console.log(userRole);
+
+	const handleLogout = () => {
+		localStorage.removeItem('item');
+		window.location.href = '/login';
+	};
 
 	return (
 		<Box>
 			<AppBar style={{backgroundColor:"#34495E"}}>
 				<Toolbar>
-					<IconButton
-						component={Link}
-						to="/"
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="school"
-						sx={{ mr: 2 }}>
-						<HomeIcon />
-					</IconButton>
-					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
-						Destination bucket list
-					</Typography>
-					<Button 
-						to="/login"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<LoginIcon />}>
-						Login
-					</Button>
-					<Button
-						to="/alldestinations"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<AirplanemodeActiveIcon />}>
-						All destinations
-					</Button>
-					{props.userid ? (
+
+
+					{userName ? (
 						<>
-							<Button onClick={props.handleLogout}>
+							<Typography variant="h6" component="div" sx={{ mr: 5 }}>
+								Destination bucket list
+							</Typography>
+							<Button
+								to="/alldestinations"
+								component={Link}
+								color="inherit"
+								sx={{ mr: 5 }}
+								startIcon={<AirplanemodeActiveIcon />}>
+								All destinations
+							</Button>
+
+							{userRole === "Admin" ? (
+								<>
+
+								</>
+							) : (<>
+								<Button
+									to="/privatedestinations"
+									component={Link}
+									color="inherit"
+									sx={{ mr: 5 }}
+									startIcon={<AirplanemodeActiveIcon />}>
+									Private destinations
+								</Button>
+							</>)}
+
+
+							<Button color="inherit" sx={{ mr: 5 }} onClick={handleLogout}>
 								Logout
 							</Button>
+							<Typography variant="h6" component="div" sx={{ mr: 5 }}>
+								User: {userName}
+							</Typography>
 						</>
 					) : (
 						<>
-							<Typography variant="h6" component="div" sx={{ mr: 5 }}>
-								User ID: {props.userid}
-							</Typography>
-						</>
+							<IconButton
+								component={Link}
+								to="/"
+								size="large"
+								edge="start"
+								color="inherit"
+								aria-label="school"
+								sx={{ mr: 2 }}>
+								<HomeIcon />
+							</IconButton></>
 					)}
-					<Button
-						to="/privatedestinations"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<AirplanemodeActiveIcon />}>
-						Private destinations
-					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>

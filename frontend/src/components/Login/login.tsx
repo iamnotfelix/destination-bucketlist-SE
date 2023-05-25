@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import {useNavigate} from "react-router-dom";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export const LoginForm = ({handleLogin}) => {
+export const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
     };
 
@@ -20,7 +19,7 @@ export const LoginForm = ({handleLogin}) => {
 
         try {
             // Perform API request to authenticate user
-            const response = await fetch(`https://localhost:7203/api/Auth/login`, {
+            const response = await fetch('https://localhost:7203/api/Auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,23 +27,20 @@ export const LoginForm = ({handleLogin}) => {
                 body: JSON.stringify({ username: username, password: password }),
             });
 
+            console.log(response.status);
             if (response.ok) {
                 const data = await response.json();
-                const token = data.token;
-                handleLogin(data.data.id);
-
-                // Store the token in local storage or a secure cookie
-
                 const item = {
-                    username: username,
-                    token: token
+                    userid: data.data.id,
+                    username: data.data.username,
+                    roles: data.data.roles,
+                    token: data.token
                 };
 
                 const itemString = JSON.stringify(item);
-
                 localStorage.setItem('item', itemString);
 
-                // Optionally, you can perform additional logic or redirect the user
+                window.location.href = '/alldestinations';
             } else {
                 throw new Error('Login failed');
             }
@@ -57,14 +53,14 @@ export const LoginForm = ({handleLogin}) => {
         <form onSubmit={handleFormSubmit}>
             <div className="mb-3">
                 <label htmlFor="username" className="form-label">
-                    Email
+                    Username
                 </label>
                 <input
                     type="text"
                     className="form-control"
                     id="username"
                     value={username}
-                    onChange={handleEmailChange}
+                    onChange={handleUsernameChange}
                 />
             </div>
             <div className="mb-3">
