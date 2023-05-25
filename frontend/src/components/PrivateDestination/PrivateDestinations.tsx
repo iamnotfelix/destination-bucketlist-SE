@@ -53,6 +53,16 @@ import {useNavigate} from "react-router-dom";
               key: 'geolocation',
           },
           {
+              title: 'StartDate',
+              dataIndex: 'startDate',
+              key: 'startDate',
+          },
+          {
+              title: 'EndDate',
+              dataIndex: 'endDate',
+              key: 'endDate',
+          },
+          {
               title: 'Actions',
               key: 'actions',
               render: (text: any, destination: Destination) => (
@@ -93,12 +103,19 @@ import {useNavigate} from "react-router-dom";
           }
       };
 
+      const handleAddPrivateDestination = () => {
+          navigate('/addprivatedestination');
+      };
+
       return (
           <div>
               <h1 style={{ fontSize: '24px', marginTop: '0px' }}>All Destinations</h1>
               <div style={{ width: '80%', margin: 'auto' }}>
                   <Table dataSource={destinations} columns={columns} rowKey="id" />
               </div>
+              <Button type="primary" onClick={handleAddPrivateDestination} style={{ marginTop: '16px' }}>
+                  Add Private Destination
+              </Button>
           </div>
       );
   };

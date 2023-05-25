@@ -1,6 +1,6 @@
 import React from 'react';
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import { AppMenu } from "./components/AppMenu";
 import { AppHome } from "./components/AppHome";
 import { LoginForm } from "./components/Login/login";
@@ -16,6 +16,13 @@ function App() {
     const user = localStorage.getItem('item');
     const item = JSON.parse(user);
     const userRole = item ? item.roles : null;
+
+    const checkAccess = (allowedRoles, route) => {
+        if (!allowedRoles.includes(userRole)) {
+            return <Navigate to="/" />;
+        }
+        return route.element;
+    };
 
     return (
         <React.Fragment>

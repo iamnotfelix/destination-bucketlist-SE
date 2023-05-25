@@ -40,7 +40,10 @@ export const LoginForm = () => {
                 const itemString = JSON.stringify(item);
                 localStorage.setItem('item', itemString);
 
-                window.location.href = '/alldestinations';
+                if(data.data.roles === "Admin")
+                    window.location.href = '/alldestinations';
+                else
+                    window.location.href = '/pickpublic';
             } else {
                 throw new Error('Login failed');
             }
