@@ -25,8 +25,8 @@ export const AppMenu = () => {
 						Destination bucket list
 					</Typography>
 					<Button
-						variant={path.startsWith("/shelter") ? "outlined" : "text"}
-						to="/shelter"
+						//variant={path.startsWith("/shelter") ? "outlined" : "text"}
+						to="/alldestinations"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
