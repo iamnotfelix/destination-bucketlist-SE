@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import { AppMenu } from "./components/AppMenu";
 import { AppHome } from "./components/AppHome";
 import { LoginForm } from "./components/Login/login";
+import { AllDestinations } from "./components/PublicDestinations/AllDestinations";
+import { PrivateDestinations } from "./components/PrivateDestination/PrivateDestinations";
 
 function App() {
     const [userid, setUserid] = useState('');
@@ -15,23 +17,27 @@ function App() {
         }
     }, []);
 
+    // @ts-ignore
     function handleLogin(userid) {
         setUserid(userid);
         localStorage.setItem('userid', userid);
     }
 
-    function handleLogout() {
-        setUserid('');
-        localStorage.removeItem('userid');
-    }
-
     return (
         <React.Fragment>
             <Router>
-                <AppMenu userid={userid} handleLogout={handleLogout}/>
+                <AppMenu />
                 <Routes>
+
                     <Route path="/" element={<AppHome />} />
-                    <Route path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+                    <Route path="/alldestinations" element={<AllDestinations />} />
+
+
+                    {/* private destination routes */}
+                    <Route path="/privatedestinations" element ={<PrivateDestinations />} />
+
+
+                    <Route path="/login" element ={<LoginForm />} />
                 </Routes>
             </Router>
         </React.Fragment>
