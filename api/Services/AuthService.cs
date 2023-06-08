@@ -77,7 +77,8 @@ namespace api.Services
                 throw new NotFoundException("Username or password are incorrect.");
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(user.Password, actualUser.Password))
+            // if (!BCrypt.Net.BCrypt.Verify(user.Password, actualUser.Password))
+            if (String.Equals(user.Password, actualUser.Password))
             {
                 throw new NotFoundException("Username or password are incorrect.");
             }
