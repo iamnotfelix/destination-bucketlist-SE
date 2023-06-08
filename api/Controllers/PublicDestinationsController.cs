@@ -69,7 +69,8 @@ namespace api.Controllers
         
         // PUT /publicdestinations/:id
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdatePublicDestinationAsync(Guid id, UpdatePublicDestinationDto publicDestination)
         {
             try
@@ -85,7 +86,8 @@ namespace api.Controllers
 
         // DELETE /publicdestination/:id
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeletePublicDestiantion(Guid id)
         {
             try
