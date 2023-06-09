@@ -252,7 +252,8 @@ namespace tests
         }
         
         [Fact]
-        public async Task AddAsync_WithEmptyImage_ThrowsValidationException()
+        public async Task 
+            AddAsync_WithEmptyImage_ThrowsValidationException()
         {
             // Arrange
             
