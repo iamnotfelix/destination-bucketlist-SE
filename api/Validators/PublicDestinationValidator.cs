@@ -95,6 +95,11 @@ public class PublicDestinationValidator
     {
         var errors = string.Empty;
         
+        if (description == string.Empty)
+        {
+            errors += "Empty Description\n";
+        }
+        
         if (description.Length > 200)
         {
             errors += "Description is too long, keep it under 200 characters\n";

@@ -99,7 +99,7 @@ public class PrivateDestinationValidator
 
         if (description == string.Empty)
         {
-            errors += "Empty Description";
+            errors += "Empty Description\n";
         }
         
         if (description.Length > 200)
