@@ -1,15 +1,15 @@
+using api.Dtos.User;
+using api.Exceptions;
+using api.Models;
 using api.Repositories;
 using api.Services;
 using api.Validators;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using Moq.EntityFrameworkCore;
 using Xunit;
-using Microsoft.Extensions.Configuration;
-using api.Models;
-using api.Dtos.User;
-using api.Exceptions;
 
-namespace tests.AuthServiceTests
+namespace tests
 {
     public class AuthServiceTests
     {

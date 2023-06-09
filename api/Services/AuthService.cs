@@ -16,7 +16,7 @@ namespace api.Services
         private readonly DatabaseContext context;
         private readonly IConfiguration configuration;
         private readonly AuthValidator validator;
-            public AuthService(DatabaseContext context, IConfiguration configuration, AuthValidator validator)
+        public AuthService(DatabaseContext context, IConfiguration configuration, AuthValidator validator)
         {
             this.context = context;
             this.configuration = configuration;

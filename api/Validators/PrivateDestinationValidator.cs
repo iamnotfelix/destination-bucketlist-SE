@@ -96,6 +96,11 @@ public class PrivateDestinationValidator
     private static string ValidateDestinationDescription(string description)
     {
         var errors = string.Empty;
+
+        if (description == string.Empty)
+        {
+            errors += "Empty Description";
+        }
         
         if (description.Length > 200)
         {
